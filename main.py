@@ -11,10 +11,10 @@ import jwt
 from flask import Flask, jsonify, request, abort
 
 
-JWT_SECRET = os.environ.get('JWT_SECRET', 'abc123abc1234')
-LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
-#JWT_SECRET = os.environ.get('JWT_SECRET')
-#LOG_LEVEL = os.environ.get('LOG_LEVEL')
+#JWT_SECRET = os.environ.get('JWT_SECRET', 'abc123abc1234')
+#LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+JWT_SECRET = os.environ.get('JWT_SECRET')
+LOG_LEVEL = os.environ.get('LOG_LEVEL')
 
 def _logger():
     '''
@@ -68,8 +68,11 @@ def auth():
     Create JWT token based on email.
     """
     request_data = request.get_json()
-    email = request_data.get('email')
-    password = request_data.get('password')
+    print(request_data)
+    #email = request_data.get('email')
+    #password = request_data.get('password')
+    email = request_data["email"]
+    password = request_data["password"]
     if not email:
         LOG.error("No email provided")
         return jsonify({"message": "Missing parameter: email"}, 400)
